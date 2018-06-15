@@ -58,6 +58,8 @@ public class StatusBarUtils {
         setStatusBarTranslucent(activity);
         //设置barview背景颜色
         setBarBackgroundColor(activity, color);
+        //设置FitsSystemWindows属性
+        setContentViewFitsSystemWindows(activity, true);
         //状态栏模式
         if (setMIUIBarMode(activity, isDark)) {
             return;
