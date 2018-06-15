@@ -44,7 +44,7 @@ public class StatusBarUtils {
         //设置barview背景颜色
         setBarBackgroundDrawable(activity, drawable);
         //设置FitsSystemWindows属性
-        setContentViewFitsSystemWindows(activity);
+        setContentViewFitsSystemWindows(activity, true);
         //状态栏模式
         if (setMIUIBarMode(activity, isDark)) {
             return;
@@ -52,13 +52,12 @@ public class StatusBarUtils {
         setBarModeV23(activity, isDark);
     }
 
+
     public static void statusBarMode(Activity activity, boolean isDark, int color) {
         //透明状态栏
         setStatusBarTranslucent(activity);
         //设置barview背景颜色
         setBarBackgroundColor(activity, color);
-        //设置FitsSystemWindows属性
-        setContentViewFitsSystemWindows(activity);
         //状态栏模式
         if (setMIUIBarMode(activity, isDark)) {
             return;
@@ -69,7 +68,10 @@ public class StatusBarUtils {
     public static void setStatusBarTranslucent(Activity activity) {
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //透明状态栏
             window.setStatusBarColor(Color.TRANSPARENT);
+            //透明导航栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -119,11 +121,11 @@ public class StatusBarUtils {
         group.addView(view, lp);
     }
 
-    public static void setContentViewFitsSystemWindows(Activity activity) {
+    public static void setContentViewFitsSystemWindows(Activity activity, boolean flag) {
         ViewGroup content = activity.findViewById(android.R.id.content);
         for (int i = 0; i < content.getChildCount(); i++) {
             if (!(content.getChildAt(i) instanceof BarView)) {
-                content.getChildAt(i).setFitsSystemWindows(true);
+                content.getChildAt(i).setFitsSystemWindows(flag);
             }
         }
     }

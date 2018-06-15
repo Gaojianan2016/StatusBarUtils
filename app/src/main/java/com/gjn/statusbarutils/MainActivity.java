@@ -1,6 +1,5 @@
 package com.gjn.statusbarutils;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e("-s-", "sdk = "+ Build.VERSION.SDK_INT);
 
-        StatusBarUtils.statusBarMode(this,true , Color.RED);
+        StatusBarUtils.statusBarMode(this,true);
+        StatusBarUtils.setContentViewFitsSystemWindows(this, false);
     }
 }
