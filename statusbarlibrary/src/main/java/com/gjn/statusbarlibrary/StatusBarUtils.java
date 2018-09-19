@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ import java.lang.reflect.Method;
 public class StatusBarUtils {
     private static final String TAG = "StatusBarUtils";
 
+    private static final int MODE_COLOR = 0;
+    private static final int MODE_DRAWABLE = 1;
+    private static final int MODE_RES = 2;
+
     public static void statusBarMode(Activity activity) {
         statusBarMode(activity, false);
     }
@@ -30,32 +35,19 @@ public class StatusBarUtils {
         statusBarMode(activity, isDark, null);
     }
 
-    public static void statusBarMode(Activity activity, Drawable drawable) {
-        statusBarMode(activity, false, drawable);
+    public static void statusBarMode(Activity activity, Object colorOrdrawable) {
+        statusBarMode(activity, false, colorOrdrawable);
     }
 
-    public static void statusBarMode(Activity activity, int color) {
-        statusBarMode(activity, false, color);
-    }
-
-    public static void statusBarMode(Activity activity, boolean isDark, Drawable drawable) {
+    public static void statusBarMode(Activity activity, boolean isDark, Object colorOrdrawable) {
         //透明状态栏
         setStatusBarTranslucent(activity);
         //设置barview背景颜色
-        setBarBackgroundDrawable(activity, drawable);
-        //状态栏模式
-        if (setMIUIBarMode(activity, isDark)) {
-            return;
+        if (colorOrdrawable instanceof Integer) {
+            setBarBackgroundColor(activity, (Integer) colorOrdrawable);
+        } else if (colorOrdrawable instanceof Drawable) {
+            setBarBackgroundDrawable(activity, (Drawable) colorOrdrawable);
         }
-        setBarModeV23(activity, isDark);
-    }
-
-
-    public static void statusBarMode(Activity activity, boolean isDark, int color) {
-        //透明状态栏
-        setStatusBarTranslucent(activity);
-        //设置barview背景颜色
-        setBarBackgroundColor(activity, color);
         //状态栏模式
         if (setMIUIBarMode(activity, isDark)) {
             return;
@@ -84,20 +76,25 @@ public class StatusBarUtils {
     }
 
     public static void setBarBackgroundColor(Activity activity, int background) {
-        setStatusBarBackground(activity, 0, background);
+        setStatusBarBackground(activity, MODE_COLOR, background);
     }
 
     public static void setBarBackgroundDrawable(Activity activity, Drawable background) {
-        setStatusBarBackground(activity, 1, background);
+        setStatusBarBackground(activity, MODE_DRAWABLE, background);
     }
 
     public static void setBarBackgroundResource(Activity activity, int background) {
-        setStatusBarBackground(activity, 2, background);
+        setStatusBarBackground(activity, MODE_RES, background);
     }
 
     private static void setStatusBarBackground(Activity activity, int type, Object object) {
         if (object == null) {
-            Log.e(TAG, "object is null.");
+            Log.i(TAG, "not set StatusbarBackground.");
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && type == MODE_COLOR) {
+            Log.i(TAG, "api >= 21 and Background is Color.");
+            activity.getWindow().setStatusBarColor((Integer) object);
             return;
         }
         ViewGroup group = activity.findViewById(android.R.id.content);
@@ -107,22 +104,25 @@ public class StatusBarUtils {
             }
         }
         BarView view = new BarView(activity);
-        if (type == 1) {
+        if (type == MODE_DRAWABLE) {
             view.setBackground((Drawable) object);
-        } else if (type == 2) {
+        } else if (type == MODE_RES) {
             view.setBackgroundResource((Integer) object);
         } else {
             view.setBackgroundColor((Integer) object);
         }
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                getStatusBarHeight(activity));
-        group.addView(view, lp);
+        group.addView(view);
     }
 
     public static void setContentViewFitsSystemWindows(Activity activity, boolean flag) {
         ViewGroup content = activity.findViewById(android.R.id.content);
         for (int i = 0; i < content.getChildCount(); i++) {
             if (!(content.getChildAt(i) instanceof BarView)) {
+                //对DrawerLayout+NavigationView生成的侧滑进行置顶修改
+                if (content.getChildAt(i) instanceof DrawerLayout) {
+                    content.getChildAt(i).setFitsSystemWindows(flag);
+                    ((DrawerLayout) content.getChildAt(i)).setClipToPadding(false);
+                }
                 content.getChildAt(i).setFitsSystemWindows(flag);
             }
         }

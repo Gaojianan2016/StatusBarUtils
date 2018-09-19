@@ -1,6 +1,8 @@
 package com.gjn.statusbarlibrary;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
 
 /**
@@ -8,7 +10,19 @@ import android.view.View;
  */
 
 public class BarView extends View {
+
     public BarView(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public BarView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int w = getResources().getDisplayMetrics().widthPixels;
+        int h = StatusBarUtils.getStatusBarHeight(getContext());
+        setMeasuredDimension(w, h);
     }
 }
