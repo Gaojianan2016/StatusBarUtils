@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e("-s-", "sdk = " + Build.VERSION.SDK_INT);
         Log.e("-s-", "BRAND = " + android.os.Build.BRAND);
 
-        StatusBarUtils.statusBarMode(this, true, Color.GREEN);
+        StatusBarUtils.statusBarMode(this, true, Color.GRAY);
         StatusBarUtils.setContentViewFitsSystemWindows(this, true);
 
         findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
