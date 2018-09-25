@@ -16,16 +16,11 @@ dependencies {
 }
 ```
 
-
-![侧滑应用1](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_3.png)
-
-![侧滑应用2](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_2.png)
-
-![基本使用](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_1.png)
-
 # 基本使用
 MainActivity.class
-
+<br >
+![基本使用](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_1.png)
+<br >
 ```
 package com.gjn.statusbarutils;
 
@@ -71,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
 # 侧滑应用1
 Main2Activity.class
-
+<br >
+![侧滑应用1](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_3.png)
+<br >
 ```
 package com.gjn.statusbarutils;
 
@@ -119,7 +116,9 @@ public class Main2Activity extends AppCompatActivity {
 
 # 侧滑应用2
 Main3Activity.class
-
+<br >
+![侧滑应用2](https://github.com/Gaojianan2016/ImgData/blob/master/StatusBarUtils_Demo/StatusBarUtils_2.png)
+<br >
 ```
 package com.gjn.statusbarutils;
 
