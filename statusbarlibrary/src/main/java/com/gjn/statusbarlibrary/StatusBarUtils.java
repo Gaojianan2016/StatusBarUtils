@@ -2,6 +2,7 @@ package com.gjn.statusbarlibrary;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -73,6 +74,36 @@ public class StatusBarUtils {
     public static int getStatusBarHeight(Context context) {
         int barId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         return context.getResources().getDimensionPixelSize(barId);
+    }
+
+    public static int getNavigationBarHeight(Context context){
+        if (hasNavigationBar(context)) {
+            int barId = context.getResources().getIdentifier("navigation_bar_height","dimen", "android");
+            return context.getResources().getDimensionPixelSize(barId);
+        }
+        return 0;
+    }
+
+    public static boolean hasNavigationBar(Context context){
+        boolean result = false;
+        Resources resources = context.getResources();
+        int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            result = resources.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                result = false;
+            } else if ("0".equals(navBarOverride)) {
+                result = true;
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "判断底部失败");
+        }
+        return result;
     }
 
     public static void setBarBackgroundColor(Activity activity, int background) {

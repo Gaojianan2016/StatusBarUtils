@@ -7,23 +7,23 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * Created by gjn on 2018/6/14.
+ * @author gjn
+ * @time 2019/3/18 16:07
  */
 
-public class BarView extends View {
-
-    public BarView(Context context) {
+public class NavigationBarView extends View {
+    public NavigationBarView(Context context) {
         this(context, null);
     }
 
-    public BarView(Context context, @Nullable AttributeSet attrs) {
+    public NavigationBarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int w = getResources().getDisplayMetrics().widthPixels;
-        int h = StatusBarUtils.getStatusBarHeight(getContext());
+        int h = StatusBarUtils.getNavigationBarHeight(getContext());
         setMeasuredDimension(w, h);
     }
 }

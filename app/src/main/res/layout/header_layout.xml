@@ -16,8 +16,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:background="@android:color/holo_blue_bright"
         android:text="我是文字"
         android:textSize="36sp"
