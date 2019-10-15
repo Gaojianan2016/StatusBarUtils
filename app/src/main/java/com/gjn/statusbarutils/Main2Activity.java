@@ -2,8 +2,9 @@ package com.gjn.statusbarutils;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 
 import com.gjn.statusbarlibrary.BarView;
 import com.gjn.statusbarlibrary.StatusBarUtils;

@@ -6,13 +6,13 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
+
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

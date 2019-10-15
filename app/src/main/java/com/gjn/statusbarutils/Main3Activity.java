@@ -1,8 +1,9 @@
 package com.gjn.statusbarutils;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gjn.statusbarlibrary.StatusBarUtils;
 
